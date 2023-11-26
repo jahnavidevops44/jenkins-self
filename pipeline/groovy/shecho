@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('welcom') {
+            steps {
+               sh 'echo \'Welcome to Roothoot\' > file2.txt'
+        }
+      }
+    }
+}
