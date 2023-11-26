@@ -1,0 +1,22 @@
+    agent any
+
+    stages {
+        stage('Publish Over SSH') {
+            steps {
+                script {
+                    // Use "Publish over SSH" to execute a command on a remote server
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'tomcat', // Replace with your SSH server configuration name
+                                transfers: [
+                                    sshTransfer(execCommand: 'echo "Welcome to Roothoot" > /home/ubuntu/sample1-file.txt')
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+        }
+    }
+}
