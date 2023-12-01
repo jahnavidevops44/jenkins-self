@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    
+
+    stages {
+        stage('git') {
+            steps {
+                git 'https://github.com/hammad-hub/java-hello-world-webapp.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    sh 'mvn clean install'
+                }
+            }
+           
+        }
+         stage ('Deployments'){
+            
+                
+                    steps {
+                        sshagent(['tomcat-server']) {
+                            
+                            sh "scp -o StrictHostKeyChecking=no target/java-hello-world.war ec2-user@65.0.89.122:/opt/tomcat/webapps/"
+                            
+                          
+                         }
+                        
+                        
+                        
+                    }
+                
+            }
+        
+        
+    }
+}
